@@ -1,0 +1,6 @@
+{
+    "verbose": true,
+    "delay": 5000,
+    "ignore": ["src/**", "instance/db/**"],
+    "watch": ["instance/**"]
+}
