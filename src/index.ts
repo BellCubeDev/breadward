@@ -4,6 +4,29 @@
  * * Listens for interactions
  * * Reacts with bread
  */
+
+export let stdoutContents = '';
+// Capture STDOUT and STDERR while still writing them to the console
+
+// @ts-ignore - this all works, don't question it
+process.stdout.write = ((write) => function (string: string, encoding: BufferEncoding, fd: number) {
+    const isoStr = `[${new Date().toISOString()}] ${string}`
+    stdoutContents += isoStr;
+
+    // @ts-ignore - this all works, don't question it
+    return write.apply(process.stdout, [isoStr, encoding, fd]);
+}
+)(process.stdout.write);
+
+// @ts-ignore - this all works, don't question it
+process.stderr.write = ((write) => function (string: string, encoding: BufferEncoding, fd: number) {
+    const isoStr = `[${new Date().toISOString()}] ${string}`
+    stdoutContents += isoStr;
+
+    // @ts-ignore - this all works, don't question it
+    return write.apply(process.stderr, [isoStr, encoding, fd]);
+})(process.stderr.write);
+
 import discord from 'discord.js';
 import fs from 'fs/promises';
 
@@ -12,6 +35,8 @@ import envFile from './env.json' assert { type: 'json' };
 import guilds from './guilds.js';
 
 import type {CommandModule, HelpData} from '../types/commands';
+
+import './httpServer.js';
 
 // use envFile as the environment default - variables set in the environment will override these
 process.env = { ...envFile, ...process.env };
