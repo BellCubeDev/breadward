@@ -189,4 +189,6 @@ export async function reactToMessage(message: discord.Message<boolean>, force: b
     }
 }
 
-client.login(token);
+console.log('Sending login request...');
+client.login(token).then(() => console.log('Sent login request!'));
+console.log('Login promise registered.')

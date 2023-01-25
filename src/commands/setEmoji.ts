@@ -44,7 +44,7 @@ export async function execute(...args: discord.ClientEvents['interactionCreate']
         ephemeral: true,
     });
 
-    const [,extractedEmojiArr] = emoji.match(/^\s*(\p{Extended_Pictographic}|\p{Regional_Indicator}{2}|[\d#\*]\uFE0F\u20E3)\s*/u) || [];
+    const [,extractedEmojiArr] = emoji.match(/^\s*(\p{Extended_Pictographic}|\p{Regional_Indicator}{2}|[\d#\*]\uFE0F\u20E3|<(?::\w*)?:\d+>|:\w+:)\s*/u) || [];
     if (!extractedEmojiArr) return interaction.reply({
         content: `Invalid emoji: ${emoji}`,
         ephemeral: true,

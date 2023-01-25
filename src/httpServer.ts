@@ -18,7 +18,7 @@ console.log('Server started');
 
 
 function keepAlive() {
-    const request = http.request('http://breadward.glitch.me', {}, () => {
+    const request = http.request('http://breadwardreborn.bellcubedev.repl.co/', {}, () => {
         console.log('Ping sent');
         setTimeout(keepAlive, 60000);
     });
